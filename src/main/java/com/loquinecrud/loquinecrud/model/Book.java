@@ -5,7 +5,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -16,12 +16,11 @@ public class Book {
     @GeneratedValue
     private long id;
 
-    @NotNull
+    @NotBlank(message = "Please provide name")
     private String name;
 
     private String description;
 
-    @NotNull
     private Date published_at;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

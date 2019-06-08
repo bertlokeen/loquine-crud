@@ -3,10 +3,10 @@ package com.loquinecrud.loquinecrud.model;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,13 +17,13 @@ public class Author {
     @GeneratedValue
     private long id;
 
-    @NonNull
+    @NotBlank(message = "Please provide name")
     private String name;
 
-    @NonNull
+    @NotBlank(message = "Please provide contact number")
     private String contact_number;
 
-    @NonNull @Past
+    @Past(message = "Birth date must be a past date")
     private Date date_of_birth;
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
