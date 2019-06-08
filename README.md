@@ -33,9 +33,10 @@ GET /api/v1/authors/{id}
 **Response**
 ```javascript
 {
-  "message" : string,
-  "success" : bool,
-  "data"    : string
+  "id": 1,
+  "name" : "John Doe",
+  "contact_number" : "+639123456789",
+  "date_of_birth" : "1990-06-20"
 }
 ```
 #### Add an author
@@ -44,7 +45,8 @@ GET /api/v1/authors/{id}
 {
   "name" : "John Doe",
   "contact_number" : "+639123456789",
-  "date_of_birth" : "1990-06-20"
+  "date_of_birth" : "1990-06-20",
+  "books": []
 }
 ```
 **Request**
