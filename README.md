@@ -12,11 +12,13 @@ Full api documentation here [https://www.getpostman.com/collections/a5effd5180a8
 GET /api/v1/authors
 ```
 **Response**
+HTTP Status 200 `OK`
 ```javascript
 {
-  "message" : string,
-  "success" : bool,
-  "data"    : string
+  "id": 1,
+  "name" : "John Doe",
+  "contact_number" : "+639123456789",
+  "date_of_birth" : "1990-06-20"
 }
 ```
 
@@ -31,6 +33,7 @@ Author ID `id` `int`
 GET /api/v1/authors/{id}
 ```
 **Response**
+HTTP Status 201 `CREATED`
 ```javascript
 {
   "id": 1,
