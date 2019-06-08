@@ -5,7 +5,7 @@ Initialized with Web, JPA, Actuator, DevTools, and H2 in-memory database.
 A author and book basic crud example with relationship, exception jandling and validation.
 
 ### Sample APIs
-Full api documentation here (Follow this Link)[https://www.getpostman.com/collections/a5effd5180a819ad11f1]
+Full api documentation here [https://www.getpostman.com/collections/a5effd5180a819ad11f1]
 #### Get all authors
 **Request**
 ```https
@@ -21,11 +21,12 @@ GET /api/v1/authors
 ```
 
 #### Get an author
+
 **URL Parameters**
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `id` | `int` | author id |
+
 **Request**
+Author ID `id` `int`
+
 ```https
 GET /api/v1/authors/{id}
 ```
