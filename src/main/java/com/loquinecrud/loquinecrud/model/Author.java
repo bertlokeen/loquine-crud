@@ -5,7 +5,9 @@ import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import javax.validation.constraints.Past;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "authors")
@@ -24,13 +26,17 @@ public class Author {
     @NonNull @Past
     private Date date_of_birth;
 
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private Set<Book> books = new HashSet<>();
+
     public Author() {}
 
-    public Author(long id, String name, String contact_number, @Past Date date_of_birth, List<Book> books) {
+    public Author(long id, String name, String contact_number, @Past Date date_of_birth, Set<Book> books) {
         this.id = id;
         this.name = name;
         this.contact_number = contact_number;
         this.date_of_birth = date_of_birth;
+        this.books = books;
     }
 
     public long getId() {
@@ -65,6 +71,14 @@ public class Author {
         this.date_of_birth = date_of_birth;
     }
 
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public String toString() {
         return "Author{" +
@@ -72,6 +86,7 @@ public class Author {
                 ", name='" + name + '\'' +
                 ", contact_number='" + contact_number + '\'' +
                 ", date_of_birth=" + date_of_birth +
+                ", books=" + books +
                 '}';
     }
 }
