@@ -25,14 +25,14 @@ public class BookController {
 
     // Get book list by author
     @GetMapping("/authors/{authorId}/books")
-    public List<Book> index(@PathVariable long authorId) {
+    public List<Book> index(@PathVariable int authorId) {
         return bookRepository.findByAuthorId(authorId);
     }
 
     // Add book to author
     @PostMapping("/authors/{authorId}/books")
     @ResponseStatus(HttpStatus.CREATED)
-    public Book create(@PathVariable long authorId, @Valid @RequestBody Book book) {
+    public Book create(@PathVariable int authorId, @Valid @RequestBody Book book) {
         return authorRepository.findById(authorId).map(author -> {
                 book.setAuthor(author);
 
@@ -42,7 +42,7 @@ public class BookController {
 
     // Get book by author
     @GetMapping("/authors/{authorId}/books/{id}")
-    public ResponseEntity<Book> get(@PathVariable long authorId, @PathVariable long id) {
+    public ResponseEntity<Book> get(@PathVariable int authorId, @PathVariable int id) {
         if (!authorRepository.existsById(authorId)) {
             throw new ResourceNotFoundException("Author with id " + authorId + "not found.");
         }
@@ -53,7 +53,7 @@ public class BookController {
 
     // Update book by author
     @PutMapping("/authors/{authorId}/books/{id}")
-    public ResponseEntity<Book> update(@PathVariable long authorId, @PathVariable long id, @Valid @RequestBody Book book) {
+    public ResponseEntity<Book> update(@PathVariable int authorId, @PathVariable int id, @Valid @RequestBody Book book) {
         Author author = authorRepository.findById(authorId)
                 .orElseThrow(() -> new ResourceNotFoundException("Author with id " + authorId + "not found."));
 
@@ -71,7 +71,7 @@ public class BookController {
 
     // Delete book by author
     @DeleteMapping("/authors/{authorId}/books/{id}")
-    public ResponseEntity<?> delete(@PathVariable long authorId, @PathVariable long id) {
+    public ResponseEntity<?> delete(@PathVariable int authorId, @PathVariable int id) {
         if (!authorRepository.existsById(authorId)) {
             throw new ResourceNotFoundException("Author with id " + authorId + "not found.");
         }

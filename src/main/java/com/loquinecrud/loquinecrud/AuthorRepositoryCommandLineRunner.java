@@ -18,9 +18,9 @@ public class AuthorRepositoryCommandLineRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         authorRepository.deleteAll();
-        LongStream.range(1, 10).mapToObj(i -> {
+        LongStream.range(1, 11).mapToObj(i -> {
             Author author = new Author();
-            author.setName("Author Name " + i);
+            author.setName("Author " + i);
             author.setContact_number("+6391234568" + i);
             author.setDate_of_birth(new Date());
 

@@ -30,13 +30,13 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Author> get(@PathVariable long id) {
+    public ResponseEntity<Author> get(@PathVariable int id) {
         return authorRepository.findById(id).map(author -> ResponseEntity.ok().body(author))
                 .orElseThrow(() -> new ResourceNotFoundException("Resource with id " + id + "not found."));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Author> update(@PathVariable long id, @Valid @RequestBody Author author) {
+    public ResponseEntity<Author> update(@PathVariable int id, @Valid @RequestBody Author author) {
         return authorRepository.findById(id).map(data -> {
             data.setName(author.getName());
             data.setContact_number(author.getContact_number());
@@ -49,7 +49,7 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable long id) {
+    public ResponseEntity<?> delete(@PathVariable int id) {
         return authorRepository.findById(id).map(author -> {
                     authorRepository.deleteById(id);
                     return ResponseEntity.ok().build();

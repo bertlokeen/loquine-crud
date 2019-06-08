@@ -15,7 +15,7 @@ public class Author {
 
     @Id
     @GeneratedValue
-    private long id;
+    private int id;
 
     @NotBlank(message = "Please provide name")
     private String name;
@@ -31,7 +31,7 @@ public class Author {
 
     public Author() {}
 
-    public Author(long id, String name, String contact_number, @Past Date date_of_birth, Set<Book> books) {
+    public Author(int id, String name, String contact_number, @Past Date date_of_birth, Set<Book> books) {
         this.id = id;
         this.name = name;
         this.contact_number = contact_number;
@@ -39,11 +39,11 @@ public class Author {
         this.books = books;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
