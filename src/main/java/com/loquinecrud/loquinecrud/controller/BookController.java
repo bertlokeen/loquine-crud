@@ -23,11 +23,13 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
+    // Get book list by author
     @GetMapping("/authors/{authorId}/books")
     public List<Book> index(@PathVariable long authorId) {
         return bookRepository.findByAuthorId(authorId);
     }
 
+    // Add book to author
     @PostMapping("/authors/{authorId}/books")
     @ResponseStatus(HttpStatus.CREATED)
     public Book create(@PathVariable long authorId, @Valid @RequestBody Book book) {
@@ -38,6 +40,7 @@ public class BookController {
             }).orElseThrow(() -> new ResourceNotFoundException("Author with id " + authorId + "not found."));
     }
 
+    // Get book by author
     @GetMapping("/authors/{authorId}/books/{id}")
     public ResponseEntity<Book> get(@PathVariable long authorId, @PathVariable long id) {
         if (!authorRepository.existsById(authorId)) {
@@ -48,25 +51,35 @@ public class BookController {
                 .orElseThrow(() -> new ResourceNotFoundException("Book with id " + id + "not found."));
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Book> update(@PathVariable long id, @Valid @RequestBody Book book) {
-//        return bookRepository.findById(id).map(data -> {
-//            data.setName(book.getName());
-//            data.setDescription(book.getDescription());
-//            data.setAuthor(book.getAuthor());
-//            data.setPublished_at(book.getPublished_at());
-//
-//            Book updated = bookRepository.save(data);
-//
-//            return ResponseEntity.ok().body(updated);
-//        }).orElse(ResponseEntity.notFound().build());
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<?> delete(@PathVariable long id) {
-//        return bookRepository.findById(id).map(book -> {
-//            bookRepository.deleteById(id);
-//            return ResponseEntity.ok().build();
-//        }).orElse(ResponseEntity.notFound().build());
-//    }
+    // Update book by author
+    @PutMapping("/authors/{authorId}/books/{id}")
+    public ResponseEntity<Book> update(@PathVariable long authorId, @PathVariable long id, @Valid @RequestBody Book book) {
+        Author author = authorRepository.findById(authorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Author with id " + authorId + "not found."));
+
+        return bookRepository.findById(id).map(data -> {
+            data.setName(book.getName());
+            data.setDescription(book.getDescription());
+            data.setAuthor(book.getAuthor());
+            data.setPublished_at(book.getPublished_at());
+
+            Book update = bookRepository.save(data);
+
+            return ResponseEntity.ok().body(update);
+        }).orElseThrow(() -> new ResourceNotFoundException("Book with id " + id + "not found."));
+    }
+
+    // Delete book by author
+    @DeleteMapping("/authors/{authorId}/books/{id}")
+    public ResponseEntity<?> delete(@PathVariable long authorId, @PathVariable long id) {
+        if (!authorRepository.existsById(authorId)) {
+            throw new ResourceNotFoundException("Author with id " + authorId + "not found.");
+        }
+
+        return bookRepository.findById(id).map(book -> {
+            bookRepository.delete(book);
+
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new ResourceNotFoundException("Book with id " + id + "not found."));
+    }
 }
